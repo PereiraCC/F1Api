@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Formula1Api.DataAccess;
+using Formula1Api.BusinessLogic;
+using Formula1Api.Models;
 
 namespace Formula1Api.Controllers;
 
@@ -11,19 +12,25 @@ public class TeamsController : ControllerBase
     private readonly ILogger<TeamsController> _logger;
     private readonly IConfiguration _configuration;
 
+    private TeamsBL _teamsBL;
+
     public TeamsController(ILogger<TeamsController> logger, IConfiguration configuration)
     {
         _logger = logger;
         _configuration = configuration;
+        _teamsBL = new TeamsBL(configuration);
     }
 
     [HttpGet("GetAllTeams")]
-    public IEnumerable<string> GetAllTeams()
+    public List<Team> GetAllTeams()
     {
-        Connection connection = new Connection(_configuration);
-        Console.WriteLine(connection.connectionString());
-        return new List<string>() {
-            "Ferrari", "RedBull", "Mercedes"
-        };
+        return _teamsBL.getAllTeams();
+    }
+    
+    [HttpGet("GetOneTeam")]
+    public Team GetOneTeam([FromBody] string nameTeam)
+    {
+        Console.WriteLine(nameTeam);
+        return _teamsBL.getOneTeam(nameTeam);
     }
 }

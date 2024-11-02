@@ -21,7 +21,7 @@ public class Connection {
 
         if (envServer != null && envDB != null && envUser != null && envPassword != null)
         {
-            return "Server=" + envServer + ";Database="+ envDB + ";User Id=" + envUser + ";Password="+ envPassword + ";";
+            return "Server=" + envServer + ";Database="+ envDB + ";User Id=" + envUser + ";Password="+ envPassword + ";TrustServerCertificate=true;";
         }
         else
         {
