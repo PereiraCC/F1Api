@@ -1,0 +1,64 @@
+# Build Folders
+bin/
+obj/
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Backup files
+*.bak
+*.tmp
+
+# NuGet Packages
+*.nupkg
+**/packages/*
+!**/packages/build/
+!**/packages/build/*.targets
+!**/packages/build/*.props
+
+# ASP.NET Core
+wwwroot/lib/
+wwwroot/css/
+wwwroot/js/
+appsettings*.json
+
+# Test results
+TestResults/
+*.trx
+
+# Rider/IntelliJ
+.idea/
+
+# Temporary files
+*.log
+*.tlog
+
+# Configuration files
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Publish directory
+publish/
+
+# Exclude other custom files
+*.pdb
+*.mdb
+*.cache
