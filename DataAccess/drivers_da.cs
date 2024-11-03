@@ -5,22 +5,22 @@ using Microsoft.Data.SqlClient;
 
 namespace Formula1Api.DataAccess;
 
-public class TeamsDA {
+public class DriversDA {
 
     private Connection _connetion;
     private string connectionString; 
 
-    public TeamsDA(IConfiguration configuration)
+    public DriversDA(IConfiguration configuration)
     {
         _connetion = new Connection(configuration);
         connectionString = _connetion.connectionString();
     }
 
-    public List<Team> getAllTeams() {
+    public List<Driver> getAllDrivers() {
 
-        List<Team> teams = new List<Team>();
+        List<Driver> drivers = new List<Driver>();
 
-        if( connectionString == null ) return teams;
+        if( connectionString == null ) return drivers;
 
         using (var connection = new SqlConnection(connectionString))
         {
@@ -29,7 +29,7 @@ public class TeamsDA {
                     connection.Open();
 
                     // Crear un comando SQL
-                    string query = "SELECT * FROM Team";
+                    string query = "SELECT D.IDDriver, D.fullname, D.number, T.fullname FROM dbo.Driver D INNER JOIN dbo.Team T ON T.IDTeam = D.IDTeam;";
                     SqlCommand command = new SqlCommand(query, connection);
 
                     // Ejecutar el comando y leer los datos
@@ -39,15 +39,12 @@ public class TeamsDA {
                         {
                             // Leer los datos
                             int id = reader.GetInt32(0);
-                            string name = reader.GetString(1);
-                            string fullname = reader.GetString(2);
-                            string chasis = reader.GetString(3);
-                            string motor = reader.GetString(4);
+                            string fullname = reader.GetString(1);
+                            string number = reader.GetString(2);
+                            string team = reader.GetString(3);
 
-                            // List<Driver> drivers = getDrivers(id);
-
-                            Team team = new Team(id, name, fullname, chasis, motor);
-                            teams.Add(team);
+                            Driver driver = new Driver(id, fullname, number, team);
+                            drivers.Add(driver);
                         }
                     }
             }
@@ -57,15 +54,15 @@ public class TeamsDA {
             }
         }
 
-        return teams;
+        return drivers;
 
     }
 
-    public Team getOneTeam(string nameTeam ) {
+    public List<Driver> getDriversByTeam(string nameTeam ) {
 
-        Team team = new Team();
+        List<Driver> drivers = new List<Driver>();
 
-        if( connectionString == null ) return team;
+        if( connectionString == null ) return drivers;
 
         using (var connection = new SqlConnection(connectionString))
         {
@@ -74,7 +71,7 @@ public class TeamsDA {
                     connection.Open();
 
                     // Crear un comando SQL
-                    string query = "SELECT * FROM Team WHERE name = '" + nameTeam + "'";
+                    string query = "SELECT D.IDDriver, D.fullname, D.number, T.fullname FROM dbo.Driver D INNER JOIN dbo.Team T ON T.IDTeam = D.IDTeam WHERE T.[Name] = '" + nameTeam + "'";
                     SqlCommand command = new SqlCommand(query, connection);
 
                     // Ejecutar el comando y leer los datos
@@ -83,11 +80,13 @@ public class TeamsDA {
                         while (reader.Read())
                         {
                             // Leer los datos
-                            team.IDTeam = reader.GetInt32(0);
-                            team.Name = reader.GetString(1);
-                            team.FullName = reader.GetString(2);
-                            team.Chasis = reader.GetString(3);
-                            team.Motor = reader.GetString(4);
+                            int id = reader.GetInt32(0);
+                            string fullname = reader.GetString(1);
+                            string number = reader.GetString(2);
+                            string team = reader.GetString(3);
+
+                            Driver driver = new Driver(id, fullname, number, team);
+                            drivers.Add(driver);
                         }
                     }
             }
@@ -97,7 +96,7 @@ public class TeamsDA {
             }
         }
 
-        return team;
+        return drivers;
 
     }
 

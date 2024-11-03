@@ -30,7 +30,6 @@ public class TeamsController : ControllerBase
     [HttpGet("GetOneTeam")]
     public Team GetOneTeam([FromBody] string nameTeam)
     {
-        Console.WriteLine(nameTeam);
         return _teamsBL.getOneTeam(nameTeam);
     }
 }
