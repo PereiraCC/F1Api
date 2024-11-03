@@ -13,6 +13,12 @@ builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configurar Kestrel para usar un puerto específico
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5001); // Escuchar en el puerto 5001
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
