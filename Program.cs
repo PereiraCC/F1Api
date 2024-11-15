@@ -11,7 +11,21 @@ builder.Configuration.AddEnvironmentVariables();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Formula 1 API",
+        Version = "v1",
+        Description = "F1 Api Documentation",
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        {
+            Name = "Carlos Pereira",
+            Email = "carloscoto0103@gmail.com",
+            Url = new Uri("https://pereira-carlos.web.app/"),
+        }
+    });
+});
 
 // Configurar Kestrel para usar un puerto específico
 builder.WebHost.ConfigureKestrel(options =>
@@ -21,11 +35,15 @@ builder.WebHost.ConfigureKestrel(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Configurar Swagger en el pipeline de la aplicación
+if (app.Environment.IsDevelopment()) // Opcional: Solo en desarrollo
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+        options.RoutePrefix = string.Empty; // Hace que Swagger esté en la raíz (localhost:5000)
+    });
 }
 
 app.UseHttpsRedirection();

@@ -43,10 +43,11 @@ public class TeamsDA {
                             string fullname = reader.GetString(2);
                             string chasis = reader.GetString(3);
                             string motor = reader.GetString(4);
+                            string srcImage = reader.GetString(5);
 
                             // List<Driver> drivers = getDrivers(id);
 
-                            Team team = new Team(id, name, fullname, chasis, motor);
+                            Team team = new Team(id, name, fullname, chasis, motor, srcImage);
                             teams.Add(team);
                         }
                     }
@@ -88,6 +89,7 @@ public class TeamsDA {
                             team.FullName = reader.GetString(2);
                             team.Chasis = reader.GetString(3);
                             team.Motor = reader.GetString(4);
+                            team.SrcImage = reader.GetString(5);
                         }
                     }
             }

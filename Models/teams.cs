@@ -13,14 +13,17 @@ public class Team {
 
     private string motor;
 
+    private string srcImage;
+
     // private List<Driver> drivers;
     //List<Driver> drivers
-    public Team( int IDTeam, string name, string fullname, string chasis, string motor) {
+    public Team( int IDTeam, string name, string fullname, string chasis, string motor, string srcImage) {
         this.IdTeam = IDTeam;
         this.name = name;
         this.fullname = fullname;
         this.chasis = chasis;
         this.motor = motor;
+        this.srcImage = srcImage;
         // this.drivers = drivers;
     }
 
@@ -54,6 +57,12 @@ public class Team {
     {
         get { return motor; } 
         set { motor = value; }
+    }
+
+    public string SrcImage
+    {
+        get { return srcImage; } 
+        set { srcImage = value; }
     }
 
     // public List<Driver> Drivers

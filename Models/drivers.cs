@@ -11,16 +11,20 @@ public class Driver {
 
     private string? team;
 
-    public Driver( int IDDriver, string fullname, string number ) {
+    private string srcImage;
+
+    public Driver( int IDDriver, string fullname, string number, string srcImage ) {
         this.IdDriver = IDDriver;
         this.fullname = fullname;
         this.number = number;
+        this.srcImage = srcImage;
     }
 
-    public Driver( int IDDriver, string fullname, string number, string team ) {
+    public Driver( int IDDriver, string fullname, string number, string srcImage, string team ) {
         this.IdDriver = IDDriver;
         this.fullname = fullname;
         this.number = number;
+        this.srcImage = srcImage;
         this.team = team;
     }
 
@@ -40,6 +44,12 @@ public class Driver {
     {
         get { return number; }
         set { number = value; }
+    }
+
+    public string SrcImage
+    {
+        get { return srcImage; }
+        set { srcImage = value; }
     }
 
     public string Team

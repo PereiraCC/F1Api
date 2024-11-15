@@ -29,7 +29,7 @@ public class DriversDA {
                     connection.Open();
 
                     // Crear un comando SQL
-                    string query = "SELECT D.IDDriver, D.fullname, D.number, T.fullname FROM dbo.Driver D INNER JOIN dbo.Team T ON T.IDTeam = D.IDTeam;";
+                    string query = "SELECT D.IDDriver, D.fullname, D.number, D.srcImage, T.fullname FROM dbo.Driver D INNER JOIN dbo.Team T ON T.IDTeam = D.IDTeam;";
                     SqlCommand command = new SqlCommand(query, connection);
 
                     // Ejecutar el comando y leer los datos
@@ -41,9 +41,10 @@ public class DriversDA {
                             int id = reader.GetInt32(0);
                             string fullname = reader.GetString(1);
                             string number = reader.GetString(2);
-                            string team = reader.GetString(3);
+                            string srcImage = reader.GetString(3);
+                            string team = reader.GetString(4);
 
-                            Driver driver = new Driver(id, fullname, number, team);
+                            Driver driver = new Driver(id, fullname, number, srcImage, team);
                             drivers.Add(driver);
                         }
                     }
@@ -71,7 +72,7 @@ public class DriversDA {
                     connection.Open();
 
                     // Crear un comando SQL
-                    string query = "SELECT D.IDDriver, D.fullname, D.number, T.fullname FROM dbo.Driver D INNER JOIN dbo.Team T ON T.IDTeam = D.IDTeam WHERE T.[Name] = '" + nameTeam + "'";
+                    string query = "SELECT D.IDDriver, D.fullname, D.number, D.srcImage, T.fullname FROM dbo.Driver D INNER JOIN dbo.Team T ON T.IDTeam = D.IDTeam WHERE T.[Name] = '" + nameTeam + "'";
                     SqlCommand command = new SqlCommand(query, connection);
 
                     // Ejecutar el comando y leer los datos
@@ -83,9 +84,10 @@ public class DriversDA {
                             int id = reader.GetInt32(0);
                             string fullname = reader.GetString(1);
                             string number = reader.GetString(2);
-                            string team = reader.GetString(3);
+                            string srcImage = reader.GetString(3);
+                            string team = reader.GetString(4);
 
-                            Driver driver = new Driver(id, fullname, number, team);
+                            Driver driver = new Driver(id, fullname, number, srcImage, team);
                             drivers.Add(driver);
                         }
                     }
