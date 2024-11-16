@@ -27,6 +27,14 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost",
+        policy => policy.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
+
 // Configurar Kestrel para usar un puerto específico
 builder.WebHost.ConfigureKestrel(options =>
 {
@@ -45,6 +53,9 @@ if (app.Environment.IsDevelopment()) // Opcional: Solo en desarrollo
         options.RoutePrefix = string.Empty; // Hace que Swagger esté en la raíz (localhost:5000)
     });
 }
+
+// Aplicar la política de CORS
+app.UseCors("AllowLocalhost");
 
 app.UseHttpsRedirection();
 
