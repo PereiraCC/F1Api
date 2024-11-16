@@ -29,10 +29,12 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost",
-        policy => policy.WithOrigins("http://localhost:4200")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod());
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()   // Permite cualquier origen
+              .AllowAnyHeader()   // Permite cualquier encabezado
+              .AllowAnyMethod();  // Permite cualquier método (GET, POST, PUT, DELETE, etc.)
+    });
 });
 
 // Configurar Kestrel para usar un puerto específico
@@ -55,7 +57,7 @@ if (app.Environment.IsDevelopment()) // Opcional: Solo en desarrollo
 }
 
 // Aplicar la política de CORS
-app.UseCors("AllowLocalhost");
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
